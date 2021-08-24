@@ -38,19 +38,21 @@ public class RequestPatientRecords extends FlowLogic<SignedTransaction> {
     public SignedTransaction call() throws FlowException {
 
         final FlowSession recipientSession = initiateFlow(respondingHospital);
-        final UntrustworthyData<String> recipientData = recipientSession.sendAndReceive(String.class, patientName);
-        String medicalRecordsData = (String) recipientData.unwrap(it -> it);
-        System.out.println(medicalRecordsData);
-        //List<String> medicalRecordsData = Collections.singletonList(recipientData.unwrap(it -> it));
-        //String medicalRecordsDataPatient = medicalRecordsData.get(0);
-        //String medicalRecordsMother = medicalRecordsData.get(1);
-        //String medicalRecordsIdentificator = medicalRecordsData.get(2);
+        //final UntrustworthyData<String> recipientData = recipientSession.sendAndReceive(String.class, patientName);
+        final UntrustworthyData<Object> recipientData = recipientSession.sendAndReceive(Object.class, patientName);
+
+        //String medicalRecordsData = (String) recipientData.unwrap(it -> it);
+
+        List<String> medicalRecordsData = (List<String>) recipientData.unwrap(it -> it);
+        String medicalRecordsDataPatient = medicalRecordsData.get(0);
+        String medicalRecordsMother = medicalRecordsData.get(1);
+        String medicalRecordsIdentificator = medicalRecordsData.get(2);
 
 
 
-    //    if (medicalRecordsData.equals(""))
-    //        //throw  new patientNotFoundException();
-    //        throw new FlowException();
+       if (medicalRecordsDataPatient.equals(""))
+           //throw  new patientNotFoundException();
+           throw new FlowException();
 
         initiatingHospital = getOurIdentity();
         // Step 1. Get a reference to the notary service on our network and our key pair.
@@ -58,7 +60,9 @@ public class RequestPatientRecords extends FlowLogic<SignedTransaction> {
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
         //Compose the State that carries the Hello World message
-        final MedicalRecordsState output = new MedicalRecordsState(patientName,medicalRecordsData,medicalRecordsData,medicalRecordsData,initiatingHospital, respondingHospital);
+        //final MedicalRecordsState output = new MedicalRecordsState(patientName,medicalRecordsData,medicalRecordsData,medicalRecordsData,initiatingHospital, respondingHospital);
+        final MedicalRecordsState output = new MedicalRecordsState(patientName,medicalRecordsMother,medicalRecordsIdentificator,medicalRecordsDataPatient,initiatingHospital, respondingHospital);
+
 
         // Step 3. Create a new TransactionBuilder object.
         final TransactionBuilder builder = new TransactionBuilder(notary);

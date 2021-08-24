@@ -14,14 +14,14 @@ import java.util.List;
 @CordaService
 public class VaultQueries extends SingletonSerializeAsToken {
     private final AppServiceHub serviceHub;
-    //private final List<String> medicalRecordsDataPacient = new ArrayList<String>();
+    private final List<String> medicalRecordsDataPacient = new ArrayList<String>();
 
     public VaultQueries(AppServiceHub serviceHub) {
         this.serviceHub = serviceHub;
     }
 
     //query vault for the patient
-    public String queryVaultByPatient(String requestedPatientId) {
+    public List<String> queryVaultByPatient(String requestedPatientId) {
         Vault.Page<MedicalRecordsState> results = serviceHub.getVaultService().queryBy(MedicalRecordsState.class);
         if (results.equals(null)) {
             return null;
@@ -30,14 +30,16 @@ public class VaultQueries extends SingletonSerializeAsToken {
         StateAndRef<MedicalRecordsState> patient = results.getStates().stream().filter(p -> {
             return p.getState().getData().getPatientName().equals(requestedPatientId);
         }).findAny().orElse(null);
+
         String medicalRecordsData = patient.getState().component1().getPatientData(); //patientName
         String medicalRecordsMother = patient.getState().component1().getPatientMother(); //patientMother
         String medicalRecordsIdentificator = patient.getState().component1().getPatientIdentificator(); //patientIdentificator
 
-        //medicalRecordsDataPacient.add(medicalRecordsData);
-        //medicalRecordsDataPacient.add(medicalRecordsMother);
-        //medicalRecordsDataPacient.add(medicalRecordsIdentificator);
+        medicalRecordsDataPacient.add(medicalRecordsData);
+        medicalRecordsDataPacient.add(medicalRecordsMother);
+        medicalRecordsDataPacient.add(medicalRecordsIdentificator);
 
-        return medicalRecordsData + medicalRecordsMother + medicalRecordsIdentificator;
+        //return medicalRecordsData + medicalRecordsMother + medicalRecordsIdentificator;
+        return medicalRecordsDataPacient;
     }
 }

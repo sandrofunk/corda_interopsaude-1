@@ -22,14 +22,16 @@ public class ResponderPatientRecords extends FlowLogic<SignedTransaction> {
     @Suspendable
     @Override
     public SignedTransaction call() throws FlowException {
-        String requestedPatientId = session.receive(String.class).unwrap(it -> it);
+        //String requestedPatientId = session.receive(String.class).unwrap(it -> it);
+
+        String requestedPatientId = (String) session.receive(Object.class).unwrap(it -> it);
 
         //query vault for the patient
         VaultQueries vaultQueriesService = getServiceHub().cordaService(VaultQueries.class);
-        final String medicalRecordsData = vaultQueriesService.queryVaultByPatient(requestedPatientId);
+        final List<String> medicalRecordsData = vaultQueriesService.queryVaultByPatient(requestedPatientId);
 
-        if (medicalRecordsData == " ") {
-            session.send("");
+        if (medicalRecordsData == null) {
+            session.send(null);
             return null;
         } else {
             session.send(medicalRecordsData);
