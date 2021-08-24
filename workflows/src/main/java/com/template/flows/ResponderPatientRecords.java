@@ -5,6 +5,8 @@ import net.corda.core.flows.*;
 import net.corda.core.identity.Party;
 import net.corda.core.transactions.SignedTransaction;
 
+import java.util.List;
+
 @InitiatedBy(RequestPatientRecords.class)
 public class ResponderPatientRecords extends FlowLogic<SignedTransaction> {
 
@@ -26,7 +28,7 @@ public class ResponderPatientRecords extends FlowLogic<SignedTransaction> {
         VaultQueries vaultQueriesService = getServiceHub().cordaService(VaultQueries.class);
         final String medicalRecordsData = vaultQueriesService.queryVaultByPatient(requestedPatientId);
 
-        if (medicalRecordsData == "") {
+        if (medicalRecordsData == " ") {
             session.send("");
             return null;
         } else {

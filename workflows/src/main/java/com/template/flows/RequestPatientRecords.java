@@ -11,6 +11,8 @@ import net.corda.core.utilities.ProgressTracker;
 import net.corda.core.utilities.UntrustworthyData;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @InitiatingFlow
 @StartableByRPC
@@ -38,9 +40,17 @@ public class RequestPatientRecords extends FlowLogic<SignedTransaction> {
         final FlowSession recipientSession = initiateFlow(respondingHospital);
         final UntrustworthyData<String> recipientData = recipientSession.sendAndReceive(String.class, patientName);
         String medicalRecordsData = (String) recipientData.unwrap(it -> it);
-        if (medicalRecordsData.equals(""))
-            //throw  new patientNotFoundException();
-            throw new FlowException();
+        System.out.println(medicalRecordsData);
+        //List<String> medicalRecordsData = Collections.singletonList(recipientData.unwrap(it -> it));
+        //String medicalRecordsDataPatient = medicalRecordsData.get(0);
+        //String medicalRecordsMother = medicalRecordsData.get(1);
+        //String medicalRecordsIdentificator = medicalRecordsData.get(2);
+
+
+
+    //    if (medicalRecordsData.equals(""))
+    //        //throw  new patientNotFoundException();
+    //        throw new FlowException();
 
         initiatingHospital = getOurIdentity();
         // Step 1. Get a reference to the notary service on our network and our key pair.
@@ -48,7 +58,7 @@ public class RequestPatientRecords extends FlowLogic<SignedTransaction> {
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
         //Compose the State that carries the Hello World message
-        final MedicalRecordsState output = new MedicalRecordsState(patientName,medicalRecordsData,initiatingHospital, respondingHospital);
+        final MedicalRecordsState output = new MedicalRecordsState(patientName,medicalRecordsData,medicalRecordsData,medicalRecordsData,initiatingHospital, respondingHospital);
 
         // Step 3. Create a new TransactionBuilder object.
         final TransactionBuilder builder = new TransactionBuilder(notary);

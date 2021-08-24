@@ -12,14 +12,14 @@ import java.util.Arrays;
 import static net.corda.testing.node.NodeTestUtils.transaction;
 
 public class ContractTests {
-    private final TestIdentity stMarys = new TestIdentity(new CordaX500Name("StMarysHospital", "London", "GB"));
-    private final TestIdentity charite = new TestIdentity(new CordaX500Name("CharitéHospital", "Berlin", "DE"));
-    private final TestIdentity bolnitsa = new TestIdentity(new CordaX500Name("Bolnitsa", "Moscow", "RU"));
+    private final TestIdentity stMarys = new TestIdentity(new CordaX500Name("CONSULTORIO", "London", "GB"));
+    private final TestIdentity charite = new TestIdentity(new CordaX500Name("IJC", "Berlin", "DE"));
+    private final TestIdentity bolnitsa = new TestIdentity(new CordaX500Name("APAE", "Moscow", "RU"));
 
     private MockServices ledgerServices = new MockServices(new TestIdentity(new CordaX500Name("TestId", "", "GB")));
 
-    private MedicalRecordsState medicalRecords = new MedicalRecordsState("Alexey", "data", stMarys.getParty(), charite.getParty());
-    private MedicalRecordsState medicalRecords2 = new MedicalRecordsState("Alexey", "data", bolnitsa.getParty(), charite.getParty());
+    private MedicalRecordsState medicalRecords = new MedicalRecordsState("Alexey", "NOME DA MÃE", "CPF" , " HISTORICO DO PACIENTE", stMarys.getParty(), charite.getParty());
+    private MedicalRecordsState medicalRecords2 = new MedicalRecordsState("Alexey", "NOME DA MÃE","CPF", "HISTÓTICO DO PACIENTE", bolnitsa.getParty(), charite.getParty());
 
     @Test
     public void tokenContractImplementsContract() {

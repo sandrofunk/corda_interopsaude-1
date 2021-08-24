@@ -27,12 +27,16 @@ public class FillMedicalRecords extends FlowLogic<SignedTransaction> {
     private Party requestHospital;
     private String patientName;
     private String patientData;
+    private String patientMother;
+    private String patientIdentificator;
 
     //public constructor
-    public FillMedicalRecords( String patientName, String patientData){
+    public FillMedicalRecords( String patientName, String patientData,String patientMother, String patientIdentificator){
        // this.requestHospital = hospital;
         this.patientName = patientName;
         this.patientData = patientData;
+        this.patientMother = patientMother;
+        this.patientIdentificator = patientIdentificator;
     }
 
     @Suspendable
@@ -47,7 +51,7 @@ public class FillMedicalRecords extends FlowLogic<SignedTransaction> {
         final Party notary = getServiceHub().getNetworkMapCache().getNotaryIdentities().get(0);
 
         //Compose the State that carries patient's information
-        final MedicalRecordsState output = new MedicalRecordsState(patientName, patientData, requestHospital, requestHospital);
+        final MedicalRecordsState output = new MedicalRecordsState(patientName, patientData,patientMother, patientIdentificator, requestHospital, requestHospital);
 
         // Step 3. Create a new TransactionBuilder object.
         final TransactionBuilder builder = new TransactionBuilder(notary);

@@ -46,7 +46,7 @@ public class FlowTests {
 
     @Test
     public void createRecordTest() throws ExecutionException, InterruptedException {
-        CordaFuture<SignedTransaction> future = a.startFlow(new FillMedicalRecords("Alexey", "data"));
+        CordaFuture<SignedTransaction> future = a.startFlow(new FillMedicalRecords("Alexey", "data","MAE","CPF"));
         network.runNetwork();
         SignedTransaction ptx = future.get();
         assert(ptx.getTx().getInputs().isEmpty());
@@ -54,7 +54,7 @@ public class FlowTests {
 
     @Test
     public void exchangeOfRecordsTest() throws ExecutionException, InterruptedException {
-        CordaFuture<SignedTransaction> future = a.startFlow(new FillMedicalRecords("Alexey", "data"));
+        CordaFuture<SignedTransaction> future = a.startFlow(new FillMedicalRecords("Alexey", "data","MAE","CPF"));
         network.runNetwork();
         SignedTransaction ptx = future.get();
 

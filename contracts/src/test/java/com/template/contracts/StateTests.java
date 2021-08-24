@@ -15,13 +15,16 @@ public class StateTests {
 
     @Test
     public void tokenStateHasIssuerOwnerAndAmountParamsOfCorrectTypeInConstructor() {
-        new MedicalRecordsState("Alexey", "data", stMarys, charite);
+        new MedicalRecordsState("Alexey", "Mae", "CPF","data",stMarys, charite);
+
     }
 
     @Test
     public void tokenStateHasGettersForIssuerOwnerAndAmount() {
-        MedicalRecordsState medicalRecords = new MedicalRecordsState("Alexey", "data", stMarys, charite);
+        MedicalRecordsState medicalRecords = new MedicalRecordsState("Alexey", "Mae", "CPF","data", stMarys, charite);
         assertEquals("Alexey", medicalRecords.getPatientName());
+        assertEquals("Mae", medicalRecords.getPatientMother());
+        assertEquals("CPF", medicalRecords.getPatientIdentificator());
         assertEquals("data", medicalRecords.getPatientData());
         assertEquals(stMarys, medicalRecords.getRequestHospital());
         assertEquals(charite, medicalRecords.getReceiverHospital());

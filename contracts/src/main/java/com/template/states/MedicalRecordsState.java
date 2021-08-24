@@ -18,16 +18,20 @@ public class MedicalRecordsState implements ContractState {
 
     //private variables
     private String patientName;
+    private String patientMother;
+    private String patientIdentificator;
     private String patientData;
     private Party receiverHospital;
     private Party requestHospital;
 
 
     @ConstructorForDeserialization
-    public MedicalRecordsState(String patientName,
+    public MedicalRecordsState(String patientName, String patientMother, String patientIdentificator,
                                String patientData,
                                Party requestHospital, Party receiverHospital) {
         this.patientName = patientName;
+        this.patientMother = patientMother;
+        this.patientIdentificator = patientIdentificator;
         this.patientData = patientData;
         this.requestHospital = requestHospital;
         this.receiverHospital = receiverHospital;
@@ -37,12 +41,14 @@ public class MedicalRecordsState implements ContractState {
     //getters
     public String getPatientName() { return patientName; }
     public String getPatientData() {return patientData; }
-
+    public String getPatientMother() {return patientMother; }
+    public String getPatientIdentificator() {return patientIdentificator; }
     public Party getRequestHospital() { return requestHospital; }
     public Party getReceiverHospital() { return receiverHospital; }
    @Override
    public String toString() {
-       return "patientName : " + patientName+ "patientData : " + patientData;
+       return "patientName : " + patientName+ "patientData : " + patientData + "patientMother: " + patientMother +
+               "patientIdentificator: " + patientIdentificator ;
    }
 
     /* This method will indicate who are the participants and required signers when

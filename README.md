@@ -9,6 +9,8 @@ Each hospital can save medical data on their vault and distribute to a particula
 But contact rejects request to share medical records for hospitals that locate in certain countries
 This CorDapp utilises CordaServices to store vaultQueries.
 
+Troca de nome dos Hospitais: CharitéHospital (Berlin) - IJC, StMarysHospital (London) - Consultório, Bolnitsa (Moscow) - APAE
+
 ## Usage
 
 ### Pre-requisites:
