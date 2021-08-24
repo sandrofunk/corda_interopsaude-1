@@ -18,8 +18,8 @@ public class ContractTests {
 
     private MockServices ledgerServices = new MockServices(new TestIdentity(new CordaX500Name("TestId", "", "GB")));
 
-    private MedicalRecordsState medicalRecords = new MedicalRecordsState("Alexey", "NOME DA MÃE", "CPF" , " HISTORICO DO PACIENTE", stMarys.getParty(), charite.getParty());
-    private MedicalRecordsState medicalRecords2 = new MedicalRecordsState("Alexey", "NOME DA MÃE","CPF", "HISTÓTICO DO PACIENTE", bolnitsa.getParty(), charite.getParty());
+    private MedicalRecordsState medicalRecords = new MedicalRecordsState("Alexey", "NOME DA MAE", "CPF" , " HISTORICO DO PACIENTE", stMarys.getParty(), charite.getParty());
+    private MedicalRecordsState medicalRecords2 = new MedicalRecordsState("Alexey", "NOME DA MAE","CPF", "HISTORICO DO PACIENTE", bolnitsa.getParty(), charite.getParty());
 
     @Test
     public void tokenContractImplementsContract() {

@@ -5,6 +5,7 @@ import com.template.contracts.MedicalRecordsContract;
 import com.template.states.MedicalRecordsState;
 import net.corda.core.flows.*;
 import net.corda.core.identity.Party;
+import net.corda.core.serialization.ConstructorForDeserialization;
 import net.corda.core.transactions.SignedTransaction;
 import net.corda.core.transactions.TransactionBuilder;
 import net.corda.core.utilities.ProgressTracker;
@@ -28,6 +29,7 @@ public class RequestPatientRecords extends FlowLogic<SignedTransaction> {
     private Party initiatingHospital ;
     private Party respondingHospital;
 
+    @ConstructorForDeserialization
     public RequestPatientRecords(Party from, String patientName){
         this.respondingHospital = from;
         this.patientName = patientName;
